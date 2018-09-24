@@ -171,6 +171,26 @@ public class alunoDAO {
 		return aluno;
 	}
 	
+	public Aluno getMatricula(String matricula) {
+		Aluno aluno = new Aluno();
+
+		try {
+			PreparedStatement stmt = this.connection.prepareStatement("select * from aluno where matricula=?");
+			stmt.setString(1, matricula);
+			ResultSet rs = stmt.executeQuery();
+
+			while (rs.next()) {
+				
+				aluno.setId(rs.getLong("id"));
+				aluno.setMatricula(rs.getString("matricula"));
+				aluno.setNome(rs.getString("nome"));
+				aluno.setCpf(rs.getString("cpf"));
+				aluno.setEndereco(rs.getString("endereco"));
+
+				
+				Calendar data = Calendar.getInstance();
+				data.setTime(rs.getDate("dataNascimento"));
+				aluno.setDataNascimento(data);
 	}
 
 
